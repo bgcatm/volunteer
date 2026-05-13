@@ -127,7 +127,7 @@
             </span>
             義工證明生成器
         </h1>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
             <div>
                 <label class="block text-sm font-semibold text-slate-600 mb-2">義工姓名</label>
                 <input type="text" id="input-name" placeholder="輸入姓名" oninput="updateCert()" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:bg-white outline-none transition-all">
@@ -139,6 +139,10 @@
             <div>
                 <label class="block text-sm font-semibold text-slate-600 mb-2">活動名稱</label>
                 <input type="text" id="input-event" placeholder="輸入活動名稱" oninput="updateCert()" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:bg-white outline-none transition-all">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold text-slate-600 mb-2">義工時數</label>
+                <input type="text" id="input-hours" placeholder="例如：3" oninput="updateCert()" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-slate-400 focus:bg-white outline-none transition-all">
             </div>
         </div>
         <button onclick="handlePrint()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-4 px-8 rounded-xl transition duration-300 flex items-center justify-center w-full md:w-auto shadow-md">
@@ -164,7 +168,7 @@
             
             <div class="cert-body">
                 茲證明 <span id="display-name" class="highlight">（姓名）</span> 於 <span id="display-date-range" class="highlight">（活動日期）</span> 期間，<br>
-                參與本中心舉辦的義工活動 <span id="display-event" class="highlight">（活動名稱）</span>，<br>
+                參與本中心舉辦的義工活動 <span id="display-event" class="highlight">（活動名稱）</span>，共 <span id="display-hours" class="highlight">（時數）</span>，<br>
                 並積極及投入參與，精神可嘉，特予證明。
             </div>
 
@@ -190,10 +194,15 @@
             const name = document.getElementById('input-name').value || '（姓名）';
             const dateRange = document.getElementById('input-date-range').value || '（活動日期）';
             const event = document.getElementById('input-event').value || '（活動名稱）';
+            let hours = document.getElementById('input-hours').value;
+            
+            // 如果有輸入時數，自動補上「小時」單位
+            const hoursDisplay = hours ? (hours.includes('小時') ? hours : hours + '小時') : '（時數）';
 
             document.getElementById('display-name').innerText = name;
             document.getElementById('display-date-range').innerText = dateRange;
             document.getElementById('display-event').innerText = event;
+            document.getElementById('display-hours').innerText = hoursDisplay;
         }
 
         // 調用系統列印
